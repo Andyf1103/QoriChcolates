@@ -64,3 +64,51 @@ If you discover a security vulnerability within Laravel, please send an e-mail t
 ## License
 
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+
+## Panel administrativo de productos e inventario
+
+### Usuario administrador
+
+Ejecutar las migraciones y seeders con:
+
+```bash
+php artisan migrate --seed
+```
+
+El seeder crea el usuario administrador:
+
+- Correo: `admin@qorichocolates.com`
+- Contraseña: `Admin123!`
+
+Cambie la contraseña y el correo en `DatabaseSeeder` antes de usar el sistema en producción.
+
+### Acceso
+
+Ingrese desde `/admin/login`. Todas las rutas bajo `/admin` requieren autenticación y `is_admin = true`.
+
+### Almacenamiento de imágenes
+
+Configure `FILESYSTEM_DISK=public` o utilice el disco `public` definido por Laravel. Cree el enlace público antes de cargar imágenes:
+
+```bash
+php artisan storage:link
+```
+
+Las imágenes se guardan en `storage/app/public/productos` y sus rutas relativas se almacenan en `imagen_principal`.
+
+### Reglas de inventario
+
+- Stock bajo: de 1 a 5 unidades.
+- Agotado: 0 unidades.
+- No se permiten cantidades negativas ni cantidades superiores al stock real desde el carrito.
+- Los productos inactivos no aparecen en el catálogo público.
+
+### Pruebas
+
+Ejecute el formateador y la suite específica:
+
+```bash
+vendor/bin/pint
+php artisan test --filter=AdminInventoryTest
+php artisan test
+```

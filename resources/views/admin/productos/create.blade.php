@@ -1,0 +1,19 @@
+@extends('admin.layout')
+@section('title', 'Nuevo producto')
+@section('heading', 'Nuevo producto')
+@section('content')
+<main class="mx-auto max-w-3xl p-4 sm:p-6">
+    <div class="mb-4 flex items-center justify-between gap-3">
+        <a href="{{ route('admin.productos.index') }}" class="text-sm text-amber-800 hover:underline">← Volver a productos</a>
+        <button form="producto-form" id="guardar-producto" type="submit" class="admin-primary-action" style="border: 0; cursor: pointer;">Guardar producto</button>
+    </div>
+    <form id="producto-form" method="POST" action="{{ route('admin.productos.store') }}" enctype="multipart/form-data" class="mt-4 grid gap-5 rounded-xl border border-gray-200 bg-white p-5 shadow-sm sm:p-6 md:grid-cols-2 dark:border-gray-800 dark:bg-gray-950" x-data="{ preview: null, dragging: false, choose(event) { const file = event.target.files[0]; if (file) this.preview = URL.createObjectURL(file) }, drop(event) { const file = event.dataTransfer.files[0]; if (file && file.type.startsWith('image/')) { this.$refs.image.files = event.dataTransfer.files; this.preview = URL.createObjectURL(file) } this.dragging = false } }">
+        @csrf
+        <div class="md:col-span-2"><label for="nombre" class="font-medium">Nombre <span class="text-red-700">*</span></label><input id="nombre" name="nombre" value="{{ old('nombre') }}" required aria-describedby="nombre-help" class="mt-1 w-full rounded-lg border-gray-300 px-3 py-3 focus:border-amber-700 focus:ring-amber-700"><p id="nombre-help" class="mt-1 text-xs text-gray-500">Usa un nombre claro para el catálogo.</p>@error('nombre')<p class="text-sm text-red-700">{{ $message }}</p>@enderror</div>
+        <div><label for="categoria_id" class="font-medium">Categoría <span class="text-red-700">*</span></label><select id="categoria_id" name="categoria_id" required class="mt-1 w-full rounded-lg border-gray-300 px-3 py-3 focus:border-amber-700 focus:ring-amber-700"><option value="">Seleccione...</option>@foreach($categorias as $categoria)<option value="{{ $categoria->id }}" @selected(old('categoria_id') == $categoria->id)>{{ $categoria->nombre }}</option>@endforeach</select>@error('categoria_id')<p class="text-sm text-red-700">{{ $message }}</p>@enderror</div>
+        <div><label for="precio" class="font-medium">Precio (Bs) <span class="text-red-700">*</span></label><input id="precio" type="number" step="0.01" min="0.01" name="precio" value="{{ old('precio') }}" required class="mt-1 w-full rounded-lg border-gray-300 px-3 py-3 focus:border-amber-700 focus:ring-amber-700">@error('precio')<p class="text-sm text-red-700">{{ $message }}</p>@enderror</div>
+        <div><label for="stock" class="font-medium">Stock inicial <span class="text-red-700">*</span></label><input id="stock" type="number" min="0" name="stock" value="{{ old('stock', 0) }}" required class="mt-1 w-full rounded-lg border-gray-300 px-3 py-3 focus:border-amber-700 focus:ring-amber-700">@error('stock')<p class="text-sm text-red-700">{{ $message }}</p>@enderror</div>
+        <div class="md:col-span-2"><span class="font-medium">Imagen principal</span><div @dragover.prevent="dragging = true" @dragleave.prevent="dragging = false" @drop.prevent="drop($event)" :class="dragging ? 'border-amber-700 bg-amber-50' : 'border-gray-300'" class="mt-1 rounded-xl border-2 border-dashed p-5 text-center"><input x-ref="image" @change="choose($event)" id="imagen" type="file" name="imagen" accept="image/jpeg,image/png,image/webp" class="w-full text-sm"><p class="mt-2 text-xs text-gray-500">JPG, PNG o WEBP, máximo 2 MB. También puedes arrastrar una imagen.</p><img x-show="preview" :src="preview" alt="Vista previa de imagen" class="mx-auto mt-4 h-32 w-32 rounded-lg object-cover"></div>@error('imagen')<p class="text-sm text-red-700">{{ $message }}</p>@enderror</div>
+    </form>
+</main>
+@endsection

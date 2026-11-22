@@ -1,0 +1,76 @@
+.admin-page-header {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+}
+
+.admin-page-actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 8px;
+}
+
+.admin-primary-action,
+.admin-secondary-action {
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    padding: 11px 16px;
+    font-size: 14px;
+    font-weight: 800;
+    line-height: 1.2;
+    text-decoration: none;
+    white-space: nowrap;
+}
+
+.admin-primary-action {
+    border: 1px solid #92400e;
+    background: #92400e;
+    color: #fff;
+    box-shadow: 0 6px 14px rgba(146,64,14,.16);
+}
+
+.admin-primary-action:hover {
+    background: #78350f;
+    color: #fff;
+}
+
+.admin-primary-action:focus-visible,
+.admin-secondary-action:focus-visible {
+    outline: 3px solid rgba(180,83,9,.35);
+    outline-offset: 3px;
+}
+
+.admin-secondary-action {
+    border: 1px solid #d1d5db;
+    background: #fff;
+    color: #374151;
+}
+
+.admin-secondary-action:hover {
+    border-color: #92400e;
+    color: #78350f;
+}
+
+@media (max-width: 640px) {
+    .admin-page-header {
+        align-items: stretch;
+        flex-direction: column;
+    }
+
+    .admin-page-actions,
+    .admin-page-actions a,
+    .admin-page-header .admin-primary-action {
+        width: 100%;
+    }
+
+    .admin-page-actions {
+        justify-content: stretch;
+    }
+}

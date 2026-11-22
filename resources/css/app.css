@@ -1,0 +1,37 @@
+.admin-sidebar {
+    transform: translateX(-100%);
+}
+
+.admin-sidebar-open {
+    transform: translateX(0);
+}
+
+.admin-content {
+    min-width: 0;
+}
+
+.admin-content-guest {
+    padding-left: 0 !important;
+}
+
+@media (min-width: 1024px) {
+    .admin-sidebar {
+        transform: translateX(0);
+    }
+
+    .admin-content {
+        padding-left: 18rem;
+    }
+
+    .admin-sidebar-collapsed {
+        width: 5rem;
+    }
+
+    .admin-content-collapsed {
+        padding-left: 5rem;
+    }
+}
+
+[x-cloak] {
+    display: none !important;
+}
