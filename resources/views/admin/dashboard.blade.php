@@ -5,7 +5,7 @@
 <div class="mx-auto max-w-7xl space-y-6 p-4 sm:p-6">
     <div class="flex flex-col justify-between gap-4 sm:flex-row sm:items-center">
         <div><p class="text-sm text-gray-500">Resumen de tu tienda</p><h2 class="text-2xl font-bold text-gray-900 dark:text-white">Buenos días, {{ auth()->user()->name }}</h2></div>
-        <div class="admin-page-actions"><a href="{{ route('admin.productos.create') }}" class="admin-primary-action">+ Crear producto</a><a href="{{ route('admin.categorias.create') }}" class="admin-secondary-action">+ Crear categoría</a></div>
+        <div class="admin-page-actions"><a href="{{ route('admin.productos.create') }}" class="admin-primary-action">+ Crear producto</a><a href="{{ route('admin.ventas.pos') }}" class="admin-secondary-action">Nueva venta</a></div>
     </div>
     <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
         @foreach([

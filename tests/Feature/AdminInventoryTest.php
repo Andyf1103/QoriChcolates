@@ -49,7 +49,8 @@ class AdminInventoryTest extends TestCase
             ->assertOk()
             ->assertSee('Productos totales')
             ->assertSee('Crear producto')
-            ->assertSee('Crear categoría');
+            ->assertSee('Nueva venta')
+            ->assertDontSee('+ Crear categoría');
     }
 
     public function test_admin_crud_pages_show_create_actions(): void
