@@ -1,114 +1,256 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Qori Chocolates
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Sistema web para Qori Chocolates construido con Laravel 11. Incluye un catálogo público de productos y un panel administrativo para gestionar categorías, productos, inventario, ventas, reportes y auditoría.
 
-## About Laravel
+## Características principales
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+### Sitio público
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+- Página de inicio con presentación de la empresa.
+- Páginas de nosotros, proceso de elaboración y contacto.
+- Catálogo público con productos disponibles y categorías.
+- Ficha individual de cada producto.
+- Carrito de compras con validación de cantidades y disponibilidad de stock.
+- Formulario de contacto con límite de solicitudes.
+- Mapa de sitio XML.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+### Panel administrativo
 
-## Learning Laravel
+- Inicio de sesión exclusivo para usuarios administradores.
+- Diseño adaptable para escritorio y dispositivos móviles.
+- Menú lateral colapsable y modo claro/oscuro.
+- Gestión de categorías y productos.
+- Control de inventario e historial de movimientos.
+- Punto de venta con cálculo de cambio.
+- Registro, consulta y anulación de ventas.
+- Reportes filtrables y generación de PDF.
+- Registro detallado de acciones administrativas.
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+## Tecnologías
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+- PHP 8.2 o superior
+- Laravel 11
+- Blade
+- Alpine.js 3
+- Vite 5
+- Tailwind CSS
+- SQLite por defecto
+- DomPDF para reportes en PDF
+- PHPUnit para pruebas
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+## Módulos del sistema
 
-## Laravel Sponsors
+| Módulo | Funciones |
+|---|---|
+| Dashboard | Resume productos totales, categorías, stock bajo, productos agotados y valor del inventario. También muestra los productos con poco stock. |
+| Categorías | Permite crear, buscar, editar y ordenar categorías. Incluye papelera y restauración; no permite eliminar una categoría asociada a productos. |
+| Productos | Permite crear, buscar, filtrar, editar y enviar productos a la papelera. La edición incluye imagen, estado activo, categoría y datos comerciales. |
+| Inventario | Actualiza el stock con un motivo obligatorio y conserva el stock anterior y el nuevo en el historial de movimientos. |
+| Ventas | Gestiona un punto de venta con efectivo o QR, cálculo de cambio, comprobante, consulta de ventas y anulación con reversión del stock. |
+| Reportes | Filtra ventas por número, método de pago, estado y fechas. Permite descargar un reporte PDF de los resultados. |
+| Auditoría | Registra cambios sobre categorías, productos y ventas. Permite filtrar por acción o entidad y consultar los datos antes y después de cada cambio. |
+| Sitio público | Presenta la empresa, el proceso productivo, el catálogo, los productos disponibles y un formulario de contacto. |
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+## Requisitos
 
-### Premium Partners
+- PHP 8.2 o superior
+- Composer
+- Node.js y npm
+- Extensiones PHP habituales de Laravel
+- XAMPP, Laragon o PHP integrado
+- SQLite habilitado en PHP
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+## Instalación en Windows con XAMPP
 
-## Contributing
+1. Clone el repositorio y entre al directorio del proyecto:
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+```bash
+git clone URL_DE_TU_REPOSITORIO
+cd qori-chocolates
+```
 
-## Code of Conduct
+2. Instale las dependencias PHP:
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+```bash
+composer install
+```
 
-## Security Vulnerabilities
+3. Instale las dependencias JavaScript:
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+```bash
+npm install
+```
 
-## License
+4. Cree el archivo de entorno:
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+```bash
+copy .env.example .env
+```
 
-## Panel administrativo de productos e inventario
+En PowerShell puede usar:
 
-### Usuario administrador
+```powershell
+Copy-Item .env.example .env
+```
 
-Ejecutar las migraciones y seeders con:
+5. Genere la clave de la aplicación:
+
+```bash
+php artisan key:generate
+```
+
+6. Configure la base de datos SQLite. El proyecto incluye `database/database.sqlite`; si no existe, créelo:
+
+```bash
+type nul > database\database.sqlite
+```
+
+En PowerShell:
+
+```powershell
+New-Item database/database.sqlite -ItemType File
+```
+
+Asegúrese de que `.env` contenga:
+
+```env
+DB_CONNECTION=sqlite
+FILESYSTEM_DISK=public
+SESSION_DRIVER=database
+QUEUE_CONNECTION=database
+CACHE_STORE=database
+```
+
+7. Ejecute migraciones y datos iniciales:
 
 ```bash
 php artisan migrate --seed
 ```
 
-El seeder crea el usuario administrador:
+Este comando crea las tablas, el usuario administrador y el catálogo inicial.
 
-- Correo: `admin@qorichocolates.com`
-- Contraseña: `Admin123!`
-
-Cambie la contraseña y el correo en `DatabaseSeeder` antes de usar el sistema en producción.
-
-### Acceso
-
-Ingrese desde `/admin/login`. Todas las rutas bajo `/admin` requieren autenticación y `is_admin = true`.
-
-### Almacenamiento de imágenes
-
-Configure `FILESYSTEM_DISK=public` o utilice el disco `public` definido por Laravel. Cree el enlace público antes de cargar imágenes:
+8. Cree el enlace público para las imágenes:
 
 ```bash
 php artisan storage:link
 ```
 
-Las imágenes se guardan en `storage/app/public/productos` y sus rutas relativas se almacenan en `imagen_principal`.
+Las imágenes administradas por el sistema se almacenan en `storage/app/public/productos`.
 
-### Reglas de inventario
+9. Compile los recursos frontend:
 
-- Stock bajo: de 1 a 5 unidades.
-- Agotado: 0 unidades.
-- No se permiten cantidades negativas ni cantidades superiores al stock real desde el carrito.
-- Los productos inactivos no aparecen en el catálogo público.
+Para desarrollo:
 
-### Pruebas
+```bash
+npm run dev
+```
 
-Ejecute el formateador y la suite específica:
+Para producción:
+
+```bash
+npm run build
+```
+
+10. Inicie el servidor:
+
+```bash
+php artisan serve
+```
+
+También puede abrir el proyecto desde Apache/XAMPP. Cuando use el servidor integrado, acceda a `http://127.0.0.1:8000`.
+
+## Acceso administrativo
+
+Ingrese a:
+
+```text
+http://127.0.0.1:8000/admin/login
+```
+
+Credenciales creadas por el seeder:
+
+- Correo: `admin@qorichocolates.com`
+- Contraseña: `Admin123!`
+
+Por seguridad, cambie estas credenciales antes de publicar el sistema.
+
+## Uso de la aplicación
+
+### Sitio público
+
+- `/`: página de inicio.
+- `/catalogo`: catálogo de productos disponibles.
+- `/nosotros`: información de la empresa.
+- `/nuestro-proceso`: proceso de elaboración.
+- `/contacto`: formulario de consultas.
+
+### Administración
+
+- `/admin/dashboard`: resumen general.
+- `/admin/categorias`: gestión de categorías.
+- `/admin/productos`: gestión de productos e inventario.
+- `/admin/ventas/pos`: punto de venta.
+- `/admin/ventas`: listado y consulta de ventas.
+- `/admin/reportes/ventas`: reportes y descarga PDF.
+- `/admin/auditoria`: historial de operaciones administrativas.
+
+Todas las rutas bajo `/admin` requieren autenticación y una cuenta con permiso de administrador.
+
+## Reglas de inventario y ventas
+
+- Un producto con 1 a 5 unidades se considera con stock bajo.
+- Un producto con 0 unidades se considera agotado.
+- No se permite vender una cantidad superior al stock disponible.
+- Los productos inactivos no se pueden vender ni aparecen en el catálogo público.
+- Las ventas pueden pagarse en efectivo o mediante QR.
+- Una venta anulada devuelve las unidades vendidas al inventario.
+- Los movimientos de stock registran cantidad, stock anterior, stock nuevo y motivo.
+
+## Comandos útiles
+
+```bash
+php artisan migrate
+php artisan migrate:fresh --seed
+php artisan storage:link
+php artisan optimize:clear
+php artisan route:list
+php artisan view:cache
+npm run dev
+npm run build
+```
+
+Advertencia: `php artisan migrate:fresh --seed` elimina los datos existentes.
+
+## Pruebas
+
+Ejecute el formateador de Laravel y todas las pruebas:
 
 ```bash
 vendor/bin/pint
-php artisan test --filter=AdminInventoryTest
 php artisan test
 ```
+
+Puede ejecutar pruebas específicas con:
+
+```bash
+php artisan test --filter=AdminInventoryTest
+```
+
+## Estructura relevante
+
+```text
+app/Http/Controllers/Admin/  Controladores del panel administrativo
+app/Http/Controllers/Public/ Controlador del sitio público
+app/Models/                  Modelos de categorías, productos, ventas y auditoría
+database/migrations/         Migraciones de la base de datos
+database/seeders/            Datos iniciales y usuario administrador
+resources/views/public/      Plantillas del sitio público
+resources/views/admin/       Plantillas del panel administrativo
+resources/css/               Estilos de la aplicación
+resources/js/                JavaScript y Alpine.js
+routes/web.php               Rutas públicas y administrativas
+```
+
+## Licencia
+
+Este proyecto utiliza el framework Laravel, distribuido bajo la licencia MIT.
