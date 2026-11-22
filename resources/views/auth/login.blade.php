@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Iniciar sesión | Qori Chocolates</title>
-    <link rel="icon" href="{{ asset('tailadmin/assets/favicon.ico') }}">
+    <link rel="icon" type="image/png" href="{{ asset('images/logoqori.png') }}">
     <style>
         * { box-sizing: border-box; }
         body { margin: 0; font-family: "Segoe UI", Arial, sans-serif; color: #2a2019; background: #f5f1ea; }

@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@yield('title', 'Administración - Qori Chocolates')</title>
-    <link rel="icon" href="{{ asset('tailadmin/assets/favicon.ico') }}">
+    <link rel="icon" type="image/png" href="{{ asset('images/logoqori.png') }}">
     <link rel="stylesheet" href="{{ asset('tailadmin/assets/style.css') }}?v={{ filemtime(public_path('tailadmin/assets/style.css')) }}">
     <link rel="stylesheet" href="{{ asset('tailadmin/assets/admin.css') }}?v={{ filemtime(public_path('tailadmin/assets/admin.css')) }}">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
@@ -34,18 +34,67 @@
         </div>
         <nav class="flex-1 space-y-1 overflow-y-auto p-4" aria-label="Navegación administrativa">
             @php($links = [
-                ['route' => 'admin.dashboard', 'label' => 'Dashboard', 'icon' => '▦'],
-                ['route' => 'admin.categorias.index', 'label' => 'Categorías', 'icon' => '◈'],
-                ['route' => 'admin.productos.index', 'label' => 'Productos', 'icon' => '□'],
-                ['route' => 'admin.ventas.pos', 'label' => 'Ventas', 'icon' => 'Bs'],
-                ['route' => 'admin.reportes.ventas', 'label' => 'Reportes', 'icon' => '▤'],
-                ['route' => 'admin.auditoria.index', 'label' => 'Auditoría', 'icon' => '◷'],
+                ['route' => 'admin.dashboard', 'label' => 'Dashboard'],
+                ['route' => 'admin.categorias.index', 'label' => 'Categorías'],
+                ['route' => 'admin.productos.index', 'label' => 'Productos'],
+                ['route' => 'admin.ventas.pos', 'label' => 'Ventas'],
+                ['route' => 'admin.reportes.ventas', 'label' => 'Reportes'],
+                ['route' => 'admin.auditoria.index', 'label' => 'Auditoría'],
             ])
             @foreach($links as $link)
                 <a href="{{ route($link['route']) }}" @click="sidebarOpen = false"
                    class="flex min-h-[44px] items-center gap-3 rounded-lg px-3 py-3 text-sm font-medium transition hover:bg-amber-50 hover:text-amber-900 focus:outline-none focus:ring-2 focus:ring-amber-700 dark:hover:bg-gray-800 {{ request()->routeIs($link['route']) ? 'bg-amber-100 text-amber-900 dark:bg-amber-900/40 dark:text-amber-200' : 'text-gray-600 dark:text-gray-300' }}"
                    :title="sidebarCollapsed ? '{{ $link['label'] }}' : ''">
-                    <span class="w-6 shrink-0 text-center text-lg" aria-hidden="true">{{ $link['icon'] }}</span>
+                    <span class="w-6 shrink-0 text-center">
+                        @switch($link['route'])
+                            @case('admin.dashboard')
+                                <svg class="mx-auto h-5 w-5" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                    <rect x="3" y="3" width="7" height="7" rx="1"></rect>
+                                    <rect x="14" y="3" width="7" height="7" rx="1"></rect>
+                                    <rect x="3" y="14" width="7" height="7" rx="1"></rect>
+                                    <rect x="14" y="14" width="7" height="7" rx="1"></rect>
+                                </svg>
+                                @break
+                            @case('admin.categorias.index')
+                                <svg class="mx-auto h-5 w-5" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                    <path d="M20.59 13.41 11 3.82A2 2 0 0 0 9.59 3H4a2 2 0 0 0-2 2v5.59A2 2 0 0 0 2.59 12l9.59 9.59a2 2 0 0 0 2.82 0l5.59-5.59a2 2 0 0 0 0-2.59Z"></path>
+                                    <circle cx="7" cy="7" r="1"></circle>
+                                </svg>
+                                @break
+                            @case('admin.productos.index')
+                                <svg class="mx-auto h-5 w-5" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                    <path d="M21 8 12 3 3 8l9 5 9-5Z"></path>
+                                    <path d="m3 8 9 5v9l-9-5V8Z"></path>
+                                    <path d="m21 8-9 5v9l9-5V8Z"></path>
+                                    <path d="m7.5 5.5 9 5"></path>
+                                </svg>
+                                @break
+                            @case('admin.ventas.pos')
+                                <svg class="mx-auto h-5 w-5" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                    <circle cx="9" cy="20" r="1"></circle>
+                                    <circle cx="18" cy="20" r="1"></circle>
+                                    <path d="M2 3h3l2.4 11.2a2 2 0 0 0 2 1.6h8.7a2 2 0 0 0 2-1.6L22 7H6"></path>
+                                    <path d="M10 11h6"></path>
+                                </svg>
+                                @break
+                            @case('admin.reportes.ventas')
+                                <svg class="mx-auto h-5 w-5" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                    <path d="M4 20V10"></path>
+                                    <path d="M10 20V4"></path>
+                                    <path d="M16 20v-7"></path>
+                                    <path d="M22 20H2"></path>
+                                </svg>
+                                @break
+                            @case('admin.auditoria.index')
+                                <svg class="mx-auto h-5 w-5" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                    <circle cx="12" cy="12" r="9"></circle>
+                                    <path d="M12 7v5l3 2"></path>
+                                    <path d="M3 12h2"></path>
+                                    <path d="M19 12h2"></path>
+                                </svg>
+                                @break
+                        @endswitch
+                    </span>
                     <span x-show="!sidebarCollapsed">{{ $link['label'] }}</span>
                 </a>
             @endforeach
@@ -55,7 +104,14 @@
             <form method="POST" action="{{ route('logout') }}">
                 @csrf
                 <button class="flex min-h-[44px] w-full items-center gap-3 rounded-lg px-3 py-3 text-sm text-gray-600 transition hover:bg-red-50 hover:text-red-700 focus:outline-none focus:ring-2 focus:ring-red-600 dark:text-gray-300" :title="sidebarCollapsed ? 'Cerrar sesión' : ''">
-                    <span class="w-6 text-center" aria-hidden="true">↪</span><span x-show="!sidebarCollapsed">Cerrar sesión</span>
+                    <span class="w-6 shrink-0 text-center">
+                        <svg class="mx-auto h-5 w-5" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                            <path d="M10 17l5-5-5-5"></path>
+                            <path d="M15 12H3"></path>
+                            <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"></path>
+                        </svg>
+                    </span>
+                    <span x-show="!sidebarCollapsed">Cerrar sesión</span>
                 </button>
             </form>
         </div>

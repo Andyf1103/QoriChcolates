@@ -13,7 +13,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>@yield('title', 'Qori Chocolates')</title>
 
-    <link rel="icon" href="{{ asset('tailadmin/assets/favicon.ico') }}">
+    <link rel="icon" type="image/png" href="{{ asset('images/logoqori.png') }}">
     <link rel="stylesheet" href="{{ asset('tailadmin/assets/style.css') }}?v={{ filemtime(public_path('tailadmin/assets/style.css')) }}">
     <link rel="stylesheet" href="{{ asset('tailadmin/assets/public.css') }}?v={{ filemtime(public_path('tailadmin/assets/public.css')) }}">
     @vite(['resources/js/app.js'])
@@ -78,10 +78,6 @@
                                 <button type="submit" class="nav-link ml-1">Cerrar sesión</button>
                             </form>
                         @endif
-                    @else
-                        <a href="{{ route('login') }}" class="nav-login" aria-label="Iniciar sesión en el panel administrativo">
-                            Iniciar sesión
-                        </a>
                     @endauth
                 </nav>
 
@@ -91,10 +87,6 @@
                             Administración
                         </a>
                     @endif
-                @else
-                    <a href="{{ route('login') }}" class="header-login" aria-label="Iniciar sesión en el panel administrativo">
-                        Iniciar sesión
-                    </a>
                 @endauth
 
                 <button
@@ -152,8 +144,6 @@
                             <button type="submit" class="w-full rounded-lg border border-stone-300 px-4 py-3 text-left text-sm font-semibold text-stone-700">Cerrar sesión</button>
                         </form>
                     @endif
-                @else
-                    <a href="{{ route('login') }}" @click="mobileMenuOpen=false" class="block rounded-lg border border-amber-900 px-4 py-3 text-sm font-semibold text-amber-950">Iniciar sesión</a>
                 @endauth
             </nav>
         </div>
