@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\AuditoriaController;
 use App\Http\Controllers\Admin\CategoriaController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\ProductoController;
+use App\Http\Controllers\Admin\ReporteVentaController;
 use App\Http\Controllers\Admin\VentaController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Public\ContactoController;
@@ -109,4 +110,6 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
     Route::get('/ventas/{venta}', [VentaController::class, 'show'])->name('ventas.show');
     Route::get('/ventas/{venta}/comprobante', [VentaController::class, 'comprobante'])->name('ventas.comprobante');
     Route::patch('/ventas/{venta}/anular', [VentaController::class, 'anular'])->name('ventas.anular');
+    Route::get('/reportes/ventas', [ReporteVentaController::class, 'index'])->name('reportes.ventas');
+    Route::get('/reportes/ventas/pdf', [ReporteVentaController::class, 'pdf'])->name('reportes.ventas.pdf');
 });
