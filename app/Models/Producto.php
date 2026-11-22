@@ -18,6 +18,7 @@ class Producto extends Model
         'stock',
         'categoria_id',
         'imagen_principal',
+        'activo',
     ];
 
     protected function casts(): array
@@ -36,6 +37,11 @@ class Producto extends Model
     public function movimientosStock(): HasMany
     {
         return $this->hasMany(MovimientoStock::class);
+    }
+
+    public function ventaDetalles(): HasMany
+    {
+        return $this->hasMany(VentaDetalle::class);
     }
 
     public function scopeStockBajo($query)

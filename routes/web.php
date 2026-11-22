@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\AuditoriaController;
 use App\Http\Controllers\Admin\CategoriaController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\ProductoController;
+use App\Http\Controllers\Admin\VentaController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Public\ContactoController;
 use App\Models\Producto;
@@ -102,4 +103,10 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
     Route::patch('/categorias/{categoria}/restaurar', [CategoriaController::class, 'restore'])->name('categorias.restore');
     Route::get('/auditoria', [AuditoriaController::class, 'index'])->name('auditoria.index');
     Route::get('/auditoria/{audit}', [AuditoriaController::class, 'show'])->name('auditoria.show');
+    Route::get('/ventas/pos', [VentaController::class, 'pos'])->name('ventas.pos');
+    Route::post('/ventas', [VentaController::class, 'store'])->name('ventas.store');
+    Route::get('/ventas', [VentaController::class, 'index'])->name('ventas.index');
+    Route::get('/ventas/{venta}', [VentaController::class, 'show'])->name('ventas.show');
+    Route::get('/ventas/{venta}/comprobante', [VentaController::class, 'comprobante'])->name('ventas.comprobante');
+    Route::patch('/ventas/{venta}/anular', [VentaController::class, 'anular'])->name('ventas.anular');
 });

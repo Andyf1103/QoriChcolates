@@ -37,6 +37,7 @@
                 ['route' => 'admin.dashboard', 'label' => 'Dashboard', 'icon' => '▦'],
                 ['route' => 'admin.categorias.index', 'label' => 'Categorías', 'icon' => '◈'],
                 ['route' => 'admin.productos.index', 'label' => 'Productos', 'icon' => '□'],
+                ['route' => 'admin.ventas.pos', 'label' => 'Ventas', 'icon' => 'Bs'],
                 ['route' => 'admin.auditoria.index', 'label' => 'Auditoría', 'icon' => '◷'],
             ])
             @foreach($links as $link)
