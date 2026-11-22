@@ -8,10 +8,15 @@
     <link rel="stylesheet" href="{{ asset('tailadmin/assets/style.css') }}?v={{ filemtime(public_path('tailadmin/assets/style.css')) }}">
     <link rel="stylesheet" href="{{ asset('tailadmin/assets/admin.css') }}?v={{ filemtime(public_path('tailadmin/assets/admin.css')) }}">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+    <script>
+        if (JSON.parse(localStorage.getItem('darkMode') || 'false')) {
+            document.documentElement.classList.add('dark');
+        }
+    </script>
     @stack('styles')
 </head>
 <body x-data="{ darkMode: false, sidebarOpen: false, sidebarCollapsed: false, modalOpen: false, confirmForm: null, confirmMessage: '', previousFocus: null, requestConfirm(form, message) { this.previousFocus = document.activeElement; this.confirmForm = form; this.confirmMessage = message; this.modalOpen = true; this.$nextTick(() => this.$refs.confirmButton.focus()) }, closeConfirmation() { this.modalOpen = false; this.$nextTick(() => { if (this.previousFocus) this.previousFocus.focus() }) }, cycleModalFocus(event) { if (event.shiftKey && document.activeElement === this.$refs.cancelButton) { event.preventDefault(); this.$refs.confirmButton.focus() } else if (!event.shiftKey && document.activeElement === this.$refs.confirmButton) { event.preventDefault(); this.$refs.cancelButton.focus() } }, submitConfirmation() { if (this.confirmForm) this.confirmForm.submit(); this.closeConfirmation() } }"
-      x-init="darkMode = JSON.parse(localStorage.getItem('darkMode') || 'false')"
+      x-init="darkMode = JSON.parse(localStorage.getItem('darkMode') || 'false'); document.documentElement.classList.toggle('dark', darkMode)"
       :class="{ 'dark bg-gray-900': darkMode }"
       class="bg-gray-50 text-gray-800 antialiased dark:text-gray-100">
 <a href="#main-content" class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:rounded-lg focus:bg-amber-800 focus:px-4 focus:py-3 focus:text-white">Saltar al contenido</a>
@@ -22,7 +27,7 @@
            class="admin-sidebar fixed inset-y-0 left-0 z-40 flex w-72 flex-col border-r border-gray-200 bg-white transition-all duration-200 dark:border-gray-800 dark:bg-gray-950">
         <div class="flex h-20 items-center justify-between border-b border-gray-200 px-5 dark:border-gray-800">
             <a href="{{ route('admin.dashboard') }}" class="flex min-w-0 items-center gap-3 font-bold text-amber-900 dark:text-amber-300">
-                <span class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-amber-800 text-lg text-white">Q</span>
+                <img src="{{ asset('images/logoqori.png') }}" alt="Logo de Qori Chocolates" class="h-10 w-10 shrink-0 rounded-xl object-contain">
                 <span x-show="!sidebarCollapsed" class="truncate">Qori Chocolates</span>
             </a>
             <button type="button" @click="sidebarOpen = false" class="rounded-lg p-2 text-gray-500 hover:bg-gray-100 lg:hidden" aria-label="Cerrar menú">×</button>
@@ -65,10 +70,7 @@
                 </div>
             </div>
             <div class="flex items-center gap-3">
-                @auth
-                    <a href="{{ route('public.catalog') }}" target="_blank" class="hidden text-sm text-amber-800 hover:underline sm:block">Ver catálogo</a>
-                @endauth
-                <button type="button" @click="darkMode = !darkMode; localStorage.setItem('darkMode', darkMode)" class="rounded-lg p-2 text-gray-600 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-amber-700 dark:text-gray-300" aria-label="Cambiar tema">◐</button>
+                <button type="button" @click="darkMode = !darkMode; localStorage.setItem('darkMode', darkMode); document.documentElement.classList.toggle('dark', darkMode)" class="rounded-lg p-2 text-gray-600 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-amber-700 dark:text-gray-300" :aria-label="darkMode ? 'Cambiar a modo claro' : 'Cambiar a modo oscuro'" :title="darkMode ? 'Modo claro' : 'Modo oscuro'">◐</button>
                 @auth<span class="hidden text-sm text-gray-600 sm:block dark:text-gray-300">{{ auth()->user()->name }}</span>@endauth
             </div>
         </header>
@@ -89,7 +91,7 @@
 <div x-cloak x-show="modalOpen" x-transition.opacity @keydown.escape.window="closeConfirmation()" class="fixed inset-0 z-[60] flex items-center justify-center bg-gray-950/60 p-4" role="dialog" aria-modal="true" aria-labelledby="confirm-title">
     <div x-show="modalOpen" x-transition @click.self="closeConfirmation()" @keydown.tab="cycleModalFocus($event)" class="w-full max-w-md rounded-xl bg-white p-6 shadow-2xl dark:bg-gray-900">
         <div class="flex items-start gap-3"><span class="rounded-full bg-red-100 p-2 text-red-700" aria-hidden="true">!</span><div><h2 id="confirm-title" class="text-lg font-bold text-gray-900 dark:text-white">Confirmar acción</h2><p class="mt-2 text-sm text-gray-600 dark:text-gray-300" x-text="confirmMessage"></p></div></div>
-        <div class="mt-6 flex justify-end gap-3"><button type="button" x-ref="cancelButton" @click="closeConfirmation()" class="min-h-[44px] rounded-lg border px-4 py-2 font-semibold hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-amber-700">Cancelar</button><button type="button" x-ref="confirmButton" @click="submitConfirmation()" class="min-h-[44px] rounded-lg bg-red-700 px-4 py-2 font-semibold text-white hover:bg-red-800 focus:outline-none focus:ring-2 focus:ring-red-700">Confirmar</button></div>
+        <div class="mt-6 flex justify-end gap-3"><button type="button" x-ref="cancelButton" @click="closeConfirmation()" class="min-h-[44px] rounded-lg border border-gray-300 bg-white px-4 py-2 font-semibold text-gray-800 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-amber-700 dark:border-gray-600 dark:bg-gray-800 dark:text-white dark:hover:bg-gray-700">Cancelar</button><button type="button" x-ref="confirmButton" @click="submitConfirmation()" class="min-h-[44px] rounded-lg border border-red-800 bg-red-700 px-4 py-2 font-semibold text-white shadow-sm hover:bg-red-800 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 dark:border-red-500 dark:bg-red-600 dark:text-white dark:hover:bg-red-500">Confirmar</button></div>
     </div>
 </div>
 @stack('scripts')

@@ -35,3 +35,64 @@
 [x-cloak] {
     display: none !important;
 }
+
+html.dark {
+    color-scheme: dark;
+}
+
+body.dark {
+    background: #111827 !important;
+    color: #f3f4f6;
+}
+
+body.dark .bg-white,
+body.dark .dark\:bg-gray-950:is(.dark *) {
+    background-color: #111827 !important;
+}
+
+body.dark .bg-gray-50,
+body.dark .hover\:bg-gray-50:hover {
+    background-color: #1f2937 !important;
+}
+
+body.dark .border-gray-200,
+body.dark .border-gray-300,
+body.dark .dark\:border-gray-800:is(.dark *) {
+    border-color: #374151 !important;
+}
+
+body.dark .text-gray-900,
+body.dark .dark\:text-white:is(.dark *) {
+    color: #f9fafb !important;
+}
+
+body.dark .text-gray-800,
+body.dark .text-gray-600,
+body.dark .text-gray-500,
+body.dark .text-gray-400 {
+    color: #9ca3af !important;
+}
+
+body.dark input,
+body.dark select,
+body.dark textarea {
+    background-color: #1f2937;
+    color: #f9fafb;
+    border-color: #4b5563;
+}
+
+body.dark input::placeholder,
+body.dark textarea::placeholder {
+    color: #9ca3af;
+}
+
+body.dark option {
+    background-color: #1f2937;
+    color: #f9fafb;
+}
+
+body.dark .admin-secondary-action {
+    background: #111827;
+    border-color: #4b5563;
+    color: #d1d5db;
+}
