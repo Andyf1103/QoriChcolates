@@ -34,7 +34,7 @@ Sistema web para Qori Chocolates construido con Laravel 11. Incluye un catálogo
 - Alpine.js 3
 - Vite 5
 - Tailwind CSS
-- SQLite por defecto
+- MySql
 - DomPDF para reportes en PDF
 - PHPUnit para pruebas
 
