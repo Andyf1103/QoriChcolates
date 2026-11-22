@@ -10,7 +10,6 @@ use App\Models\Producto;
 use App\Support\RecordsAdminAudit;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Storage;
 use Throwable;
 
 class ProductoController extends Controller
@@ -62,14 +61,8 @@ class ProductoController extends Controller
     {
         $data = $request->validated();
         unset($data['imagen']);
-        $newImage = null;
 
         try {
-            if ($request->hasFile('imagen')) {
-                $newImage = $request->file('imagen')->store('productos', 'public');
-                $data['imagen_principal'] = $newImage;
-            }
-
             $producto = DB::transaction(function () use ($data) {
                 $producto = Producto::create($data);
                 if ($producto->stock > 0) {
@@ -88,9 +81,6 @@ class ProductoController extends Controller
             });
             $this->recordAudit('created', $producto, null, $producto->only(['nombre', 'precio', 'stock', 'categoria_id']));
         } catch (Throwable $exception) {
-            if ($newImage) {
-                Storage::disk('public')->delete($newImage);
-            }
             throw $exception;
         }
 
@@ -125,28 +115,13 @@ class ProductoController extends Controller
         $data = $request->validated();
         unset($data['stock'], $data['imagen'], $data['eliminar_imagen']);
         $before = $producto->fresh()->toArray();
-        $oldImage = $before['imagen_principal'] ?? null;
-        $newImage = null;
 
         try {
-            if ($request->hasFile('imagen')) {
-                $newImage = $request->file('imagen')->store('productos', 'public');
-                $data['imagen_principal'] = $newImage;
-            } elseif ($request->boolean('eliminar_imagen')) {
-                $data['imagen_principal'] = null;
-            }
-
             DB::transaction(function () use ($producto, $data) {
                 $producto->update($data);
             });
-            if (($newImage || $request->boolean('eliminar_imagen')) && $oldImage) {
-                Storage::disk('public')->delete($oldImage);
-            }
             $this->recordAudit('updated', $producto, $before, $producto->fresh()->toArray());
         } catch (Throwable $exception) {
-            if ($newImage) {
-                Storage::disk('public')->delete($newImage);
-            }
             throw $exception;
         }
 

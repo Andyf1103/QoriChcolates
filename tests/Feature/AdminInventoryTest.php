@@ -161,23 +161,18 @@ class AdminInventoryTest extends TestCase
             'categoria_id' => $categoria->id,
             'precio' => 15,
             'stock' => 5,
-            'imagen' => UploadedFile::fake()->image('chocolate.jpg'),
         ])->assertRedirect();
 
         $producto = Producto::where('nombre', 'Chocolate con imagen')->firstOrFail();
-        Storage::disk('public')->assertExists($producto->imagen_principal);
+        $this->assertNull($producto->imagen_principal);
 
-        $oldImage = $producto->imagen_principal;
         $this->actingAs($admin)->put('/admin/productos/'.$producto->id, [
             'nombre' => $producto->nombre,
             'categoria_id' => $categoria->id,
             'precio' => 16,
             'stock' => 5,
             'imagen' => UploadedFile::fake()->image('nuevo.png'),
-        ]);
-
-        Storage::disk('public')->assertMissing($oldImage);
-        Storage::disk('public')->assertExists($producto->fresh()->imagen_principal);
+        ])->assertSessionHasErrors('imagen');
 
         $this->actingAs($admin)->post('/admin/productos', [
             'nombre' => 'Archivo invalido',
