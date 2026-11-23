@@ -162,10 +162,12 @@ class AdminInventoryTest extends TestCase
             'categoria_id' => $categoria->id,
             'precio' => 15,
             'stock' => 5,
+            'imagen' => UploadedFile::fake()->image('producto.jpg'),
         ])->assertRedirect();
 
         $producto = Producto::where('nombre', 'Chocolate con imagen')->firstOrFail();
-        $this->assertNull($producto->imagen_principal);
+        $this->assertNotNull($producto->imagen_principal);
+        Storage::disk('public')->assertExists($producto->imagen_principal);
 
         $this->actingAs($admin)->put('/admin/productos/'.$producto->id, [
             'nombre' => $producto->nombre,

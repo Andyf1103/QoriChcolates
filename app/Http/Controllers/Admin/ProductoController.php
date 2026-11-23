@@ -10,6 +10,7 @@ use App\Models\Producto;
 use App\Support\RecordsAdminAudit;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 use Throwable;
 
 class ProductoController extends Controller
@@ -60,10 +61,19 @@ class ProductoController extends Controller
     public function store(ProductoRequest $request)
     {
         $data = $request->validated();
+        $imagen = $data['imagen'] ?? null;
         unset($data['imagen']);
+        $storedImagePath = null;
 
         try {
-            $producto = DB::transaction(function () use ($data) {
+            $producto = DB::transaction(function () use ($data, $imagen, &$storedImagePath) {
+                if ($imagen) {
+                    $storedImagePath = $imagen->store('productos', 'public');
+                    if ($storedImagePath) {
+                        $data['imagen_principal'] = $storedImagePath;
+                    }
+                }
+
                 $producto = Producto::create($data);
                 if ($producto->stock > 0) {
                     MovimientoStock::create([
@@ -79,10 +89,13 @@ class ProductoController extends Controller
 
                 return $producto;
             });
-            $this->recordAudit('created', $producto, null, $producto->only(['nombre', 'precio', 'stock', 'categoria_id']));
         } catch (Throwable $exception) {
+            if ($storedImagePath) {
+                Storage::disk('public')->delete($storedImagePath);
+            }
             throw $exception;
         }
+        $this->recordAudit('created', $producto, null, $producto->only(['nombre', 'precio', 'stock', 'categoria_id']));
 
         return redirect()->route('admin.productos.index')->with('success', 'Producto creado correctamente.');
     }

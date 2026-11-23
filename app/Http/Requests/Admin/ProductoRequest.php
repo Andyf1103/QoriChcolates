@@ -23,13 +23,16 @@ class ProductoRequest extends FormRequest
     public function rules(): array
     {
         $isUpdate = $this->route('producto') !== null;
+        $isCreate = ! $isUpdate;
 
         return [
             'nombre' => ['required', 'string', 'min:3', 'max:150'],
             'categoria_id' => ['required', 'integer', 'exists:categorias,id'],
             'precio' => ['required', 'numeric', 'gt:0', 'decimal:0,2'],
             'stock' => $isUpdate ? ['sometimes', 'integer', 'min:0'] : ['required', 'integer', 'min:0'],
-            'imagen' => ['prohibited'],
+            'imagen' => $isCreate
+                ? ['nullable', 'image', 'mimes:jpeg,png,webp', 'max:2048']
+                : ['prohibited'],
             'eliminar_imagen' => ['prohibited'],
         ];
     }
