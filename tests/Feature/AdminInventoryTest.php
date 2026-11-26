@@ -88,6 +88,9 @@ class AdminInventoryTest extends TestCase
 
         $producto = Producto::where('nombre', 'Chocolate Especial')->firstOrFail();
         $this->assertEquals(4, $producto->stock);
+        $this->get('/catalogo')
+            ->assertOk()
+            ->assertSee('Chocolate Especial');
 
         $this->actingAs($admin)->get('/admin/productos?buscar=Especial&categoria='.$categoria->id.'&stock_bajo=1')
             ->assertOk()->assertSee('Chocolate Especial');
