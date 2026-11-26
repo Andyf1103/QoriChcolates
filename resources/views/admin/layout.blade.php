@@ -118,7 +118,7 @@
     </aside>
     @endauth
     <div :class="{ 'admin-content-collapsed': sidebarCollapsed }" class="admin-content @guest admin-content-guest @endguest transition-all duration-200">
-        <header class="sticky top-0 z-20 flex h-20 items-center justify-between border-b border-gray-200 bg-white/95 px-4 backdrop-blur sm:px-6 dark:border-gray-800 dark:bg-gray-950/95">
+        <header class="z-20 flex h-20 items-center justify-between border-b border-gray-200 bg-white/95 px-4 backdrop-blur sm:px-6 dark:border-gray-800 dark:bg-gray-950/95">
             <div class="flex items-center gap-3">
                 <button type="button" @click="sidebarOpen = true" class="rounded-lg p-2 text-gray-600 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-amber-700 lg:hidden" aria-label="Abrir menú">☰</button>
                 <button type="button" @click="sidebarCollapsed = !sidebarCollapsed" class="hidden rounded-lg p-2 text-gray-600 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-amber-700 lg:block" :aria-label="sidebarCollapsed ? 'Expandir menú' : 'Colapsar menú'">☰</button>

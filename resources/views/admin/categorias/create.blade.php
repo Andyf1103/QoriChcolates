@@ -1,5 +1,6 @@
 @extends('admin.layout')
 @section('title', 'Nueva categoría')
+@section('heading', 'Nueva categoría')
 @section('content')
 <main class="mx-auto max-w-xl p-4 sm:p-6" x-data="{ name: '{{ old('nombre') }}', slug: '{{ old('slug') }}', slugify(value) { return value.toString().normalize('NFD').replace(/[\\u0300-\\u036f]/g, '').toLowerCase().trim().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '') } }">
     <h1 class="text-2xl font-bold">Nueva categoría</h1>
