@@ -98,6 +98,26 @@
                     </div>
                 </form>
             </div>
+            <section class="lg:col-span-2 rounded-[2rem] border border-amber-900/10 bg-white p-6 sm:p-8" aria-labelledby="location-heading">
+                <h2 id="location-heading" class="text-2xl font-bold text-amber-950">Nuestra ubicación</h2>
+                <div class="mt-6 aspect-video overflow-hidden rounded-2xl border border-stone-200 bg-stone-100">
+                    <iframe
+                        title="Mapa de OpenStreetMap con la ubicación de Qori Chocolates"
+                        src="https://www.openstreetmap.org/export/embed.html?bbox=-65.272120%2C-19.062707%2C-65.252120%2C-19.042707&amp;layer=mapnik&amp;marker=-19.052707%2C-65.262120"
+                        class="h-full w-full border-0"
+                        loading="lazy"
+                        referrerpolicy="no-referrer-when-downgrade"
+                    ></iframe>
+                </div>
+                <a
+                    href="https://www.openstreetmap.org/?mlat=-19.052707&amp;mlon=-65.262120#map=16/-19.052707/-65.262120"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="mt-5 inline-flex min-h-11 items-center rounded-full border border-amber-900 px-5 py-3 text-sm font-bold text-amber-950 transition hover:bg-amber-50"
+                >
+                    Abrir mapa en OpenStreetMap
+                </a>
+            </section>
         </div>
     </section>
     @push('scripts')

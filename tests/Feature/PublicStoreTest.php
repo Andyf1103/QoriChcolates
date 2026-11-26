@@ -52,6 +52,16 @@ class PublicStoreTest extends TestCase
             ->assertSee('wa.me/59169682107');
     }
 
+    public function test_contact_page_shows_responsive_openstreetmap_location(): void
+    {
+        $this->get('/contacto')->assertOk()
+            ->assertSee('Nuestra ubicación')
+            ->assertSee('aspect-video')
+            ->assertSee('marker=-19.052707%2C-65.262120')
+            ->assertSee('https://www.openstreetmap.org/?mlat=-19.052707&amp;mlon=-65.262120#map=16/-19.052707/-65.262120', false)
+            ->assertSee('Abrir mapa en OpenStreetMap');
+    }
+
     public function test_contact_message_is_saved_only_after_validation(): void
     {
         $this->post('/contacto', [
