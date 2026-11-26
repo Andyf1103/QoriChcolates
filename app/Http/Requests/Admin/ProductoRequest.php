@@ -26,7 +26,7 @@ class ProductoRequest extends FormRequest
         $isCreate = ! $isUpdate;
 
         return [
-            'nombre' => ['required', 'string', 'min:3', 'max:150'],
+            'nombre' => ['required', 'string', 'min:3', 'max:150', 'not_regex:/<\/?[a-z][^>]*>/i'],
             'categoria_id' => ['required', 'integer', 'exists:categorias,id'],
             'precio' => ['required', 'numeric', 'gt:0', 'decimal:0,2'],
             'stock' => $isUpdate ? ['sometimes', 'integer', 'min:0'] : ['required', 'integer', 'min:0'],

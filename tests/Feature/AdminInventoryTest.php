@@ -117,6 +117,37 @@ class AdminInventoryTest extends TestCase
         ])->assertSessionHasErrors(['nombre', 'precio', 'stock']);
     }
 
+    public function test_product_names_reject_html_markup_and_allow_accents_and_punctuation(): void
+    {
+        $admin = $this->admin();
+        $categoria = $this->categoria();
+
+        $this->actingAs($admin)->post('/admin/productos', [
+            'nombre' => 'Café especial, 70%!',
+            'categoria_id' => $categoria->id,
+            'precio' => 18.50,
+            'stock' => 4,
+        ])->assertRedirect();
+        $producto = Producto::where('nombre', 'Café especial, 70%!')->firstOrFail();
+
+        $this->actingAs($admin)->post('/admin/productos', [
+            'nombre' => '<hola/>',
+            'categoria_id' => $categoria->id,
+            'precio' => 18.50,
+            'stock' => 4,
+        ])->assertSessionHasErrors('nombre');
+        $this->assertDatabaseMissing('productos', ['nombre' => '<hola/>']);
+
+        $this->actingAs($admin)->put('/admin/productos/'.$producto->id, [
+            'nombre' => '<hola/>',
+            'categoria_id' => $categoria->id,
+            'precio' => 18.50,
+            'stock' => 4,
+        ])->assertSessionHasErrors('nombre');
+        $this->assertDatabaseHas('productos', ['id' => $producto->id, 'nombre' => 'Café especial, 70%!']);
+        $this->assertDatabaseMissing('productos', ['nombre' => '<hola/>']);
+    }
+
     public function test_category_crud_and_association_protection(): void
     {
         $admin = $this->admin();
